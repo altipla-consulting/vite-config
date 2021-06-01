@@ -27,7 +27,7 @@ module.exports = extendConfig()
 
 ## Library mode
 
-To build libraries configure the special library mode.
+To build libraries configure the special mode:
 
 ```js
 const { extendLibConfig } = require('@altipla/vite-config')
@@ -42,7 +42,7 @@ The default configuration builds a ES module. If you want to customize the outpu
 const { extendLibConfig } = require('@altipla/vite-config')
 
 
-module.exports = extendLibConfig('example', {
+module.exports = extendLibConfig({
   build: {
     lib: {
       name: 'example',
@@ -52,7 +52,7 @@ module.exports = extendLibConfig('example', {
 })
 ```
 
-Use this library mode with a new command in the `package.json` scripts section:
+Use this library mode with a new `npm run lib` command in the `package.json` scripts section:
 
 ```json
 {
