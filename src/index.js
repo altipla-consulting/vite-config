@@ -13,7 +13,7 @@ import mkdirp from 'mkdirp'
 let https, certGenerated
 
 
-export default function (userConfig) {
+export function extendConfig(userConfig) {
   if (!certGenerated) {
     certGenerated = true
 
@@ -55,6 +55,9 @@ export default function (userConfig) {
   }
 
   return merge({
+    build: {
+      sourcemap: true,
+    },
     resolve: {
       dedupe,
       alias: {
@@ -71,3 +74,33 @@ export default function (userConfig) {
     },
   }, userConfig)
 }
+
+
+export function extendLibConfig(userConfig) {
+  if (!userConfig) {
+    userConfig = {}
+  }
+
+  return function({ mode }) {
+    let build
+    if (mode === 'lib') {
+      build = merge({
+        lib: {
+          entry: path.resolve(process.cwd(), 'src', 'lib.js'),
+          formats: ['es'],
+        },
+      }, userConfig.build)
+    } else {
+      if (userConfig.build) {
+        delete userConfig.build.lib
+      }
+    }
+
+    return extendConfig(merge({ build }, userConfig))
+  }
+}
+
+
+// Deprecated export to keep compatibility with old configurations.
+// TODO(ernesto): Remove in the next major version.
+export default extendConfig
