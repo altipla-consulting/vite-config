@@ -95,6 +95,9 @@ export function extendLibConfig(userConfig) {
     } else {
       if (userConfig.build) {
         delete userConfig.build.lib
+        if (userConfig.build.rollupOptions) {
+          delete userConfig.build.rollupOptions.external
+        }
       }
     }
 
