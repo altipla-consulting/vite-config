@@ -7,3 +7,4 @@ set -eu
 run "npm ci"
 run "npm run lint"
 run "npm test"
+run "pub"
