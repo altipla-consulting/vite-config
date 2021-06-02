@@ -2,6 +2,7 @@
 import * as path from 'path'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { homedir } from 'os'
+import { createRequire } from 'module'
 
 import execa from 'execa'
 import tempy from 'tempy'
@@ -43,6 +44,7 @@ export function extendConfig(userConfig) {
       continue
     }
 
+    let require = createRequire(import.meta.url)
     let resolved = require.resolve(`${name}/package.json`, {
       paths: [process.cwd()],
     })
