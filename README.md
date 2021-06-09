@@ -18,10 +18,10 @@ npm i @altipla/vite-config
 Use the exported function from this package to configure the `vite.config.js` file in your project:
 
 ```js
-const { extendConfig } = require('@altipla/vite-config')
+import { extendConfig } from '@altipla/vite-config'
 
 
-module.exports = extendConfig()
+export default extendConfig()
 ```
 
 
@@ -30,19 +30,19 @@ module.exports = extendConfig()
 To build libraries configure the special mode:
 
 ```js
-const { extendLibConfig } = require('@altipla/vite-config')
+import { extendLibConfig } from '@altipla/vite-config'
 
 
-module.exports = extendLibConfig()
+export default extendLibConfig()
 ```
 
 The default configuration builds a ES module. If you want to customize the outputs to emit the IIFE format for example extend the configuration with a name too:
 
 ```js
-const { extendLibConfig } = require('@altipla/vite-config')
+import { extendLibConfig } from '@altipla/vite-config'
 
 
-module.exports = extendLibConfig({
+export default extendLibConfig({
   build: {
     lib: {
       name: 'example',
