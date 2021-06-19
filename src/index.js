@@ -11,28 +11,26 @@ import vue from '@vitejs/plugin-vue'
 import mkdirp from 'mkdirp'
 
 
-let https, certGenerated
-
-
 export function extendConfig(userConfig) {
-  if (!certGenerated) {
-    certGenerated = true
-
+  let https
+  if (!process.env.CI || process.env.CI === 'vite-config-tests') {
     let config = path.join(homedir(), '.config', 'vite-config', 'certs.json')
     if (existsSync(config)) {
       https = JSON.parse(readFileSync(config, 'utf-8'))
     }
 
-    let tmpcert = tempy.file()
-    let tmpkey = tempy.file()
-    execa.sync('mkcert', ['-cert-file', tmpcert, '-key-file', tmpkey, 'localhost'])
-
-    let cert = readFileSync(tmpcert, 'utf-8')
-    let key = readFileSync(tmpkey, 'utf-8')
-    https = { key, cert }
-
-    mkdirp.sync(path.dirname(config))
-    writeFileSync(config, JSON.stringify(https), 'utf-8')
+    if (!https) {
+      let tmpcert = tempy.file()
+      let tmpkey = tempy.file()
+      execa.sync('mkcert', ['-cert-file', tmpcert, '-key-file', tmpkey, 'localhost'])
+  
+      let cert = readFileSync(tmpcert, 'utf-8')
+      let key = readFileSync(tmpkey, 'utf-8')
+      https = { key, cert }
+  
+      mkdirp.sync(path.dirname(config))
+      writeFileSync(config, JSON.stringify(https), 'utf-8')
+    }
   }
 
   // Find common dependencies between the app and its local libraries
