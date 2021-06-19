@@ -1,6 +1,6 @@
 {
   "name": "@altipla/vite-config",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Configure vite with sane defaults for our projects.",
   "main": "./src/index.js",
   "type": "module",
