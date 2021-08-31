@@ -64,6 +64,10 @@ export function extendConfig(userConfig) {
         '/platform': path.resolve(process.cwd(), 'src', 'platform'),
         '/components': path.resolve(process.cwd(), 'src', 'components'),
         '/images': path.resolve(process.cwd(), 'src', 'images'),
+        '/models': path.resolve(process.cwd(), 'src', 'models'),
+        '/protos': path.resolve(process.cwd(), 'src', 'protos'),
+        '/filters': path.resolve(process.cwd(), 'src', 'filters'),
+        '/styles': path.resolve(process.cwd(), 'src', 'styles'),
       },
     },
     plugins: [
